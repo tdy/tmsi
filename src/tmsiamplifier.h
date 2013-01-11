@@ -1,8 +1,9 @@
 /**
- * @brief TmsiAmplifier Class definition
- * @author Macias@BCI
+ * @brief Tmsi Amplifier Driver
+ * @author Macias@OpenBCI
  * @date 13 październik 2010, 13:14
  * Modified on 11 Jan 2013 by Alberto Valero
+ * Distributed under GPL license
  */
 
 #ifndef TMSIAMPLIFIER_H
@@ -43,8 +44,21 @@ using namespace std;
  * @author Macias@OpenBCI (modified by Alberto Valero)
  */
 class TmsiAmplifier : public Amplifier {
+
+public:
+    /**
+     * @brief Default TmsiAmplifier Constructor
+     */
+    TmsiAmplifier();
+
+    virtual ~TmsiAmplifier();
+
+
 private:
-    int fd, read_fd, dump_fd; //device descriptor
+    int fd //!< Devide descriptor
+    int read_fd //!< File Descriptor for reading
+    int dump_fd; //!< File descriptor for writting (saving data)
+
     tms_frontendinfo_t fei;
     tms_vldelta_info_t vli;
     tms_input_device_t dev;
@@ -58,18 +72,32 @@ private:
     int keep_alive;
     int read_errors;
     uint mode;
+
 protected:
     virtual double get_expected_sample_time();
+
 public:
-    TmsiAmplifier();
     uint get_digi(uint index);
+
+    /**
+     * @brief get_sample_int
+     * @param index channel index
+     * @return sample of index channel
+     */
     inline int get_sample_int(uint index){
     	return channel_data[index].data[channel_data_index].isample;
     }
+
     uint get_base_sample_rate(){
     	return fei.basesamplerate;
     }
+
     double next_samples(bool synchronize=true);
+
+    /**
+     * @brief number_of_channels
+     * @return Number of channels of the amplifier
+     */
     int number_of_channels() {
         return fei.nrofswchannels;
     }
@@ -81,14 +109,21 @@ public:
     int get_sampling_rate_div() {
         return sample_rate_div;
     }
+
     void start_sampling();
+
     void stop_sampling(bool disconnecting=false);
+
     int refreshInfo();
-	boost::program_options::options_description get_options();
-	void init(boost::program_options::variables_map &vm);
-	void connect_device(uint type,const string &address);
-    virtual ~TmsiAmplifier();
+
+    boost::program_options::options_description get_options();
+
+    void init(boost::program_options::variables_map &vm);
+
+    void connect_device(uint type,const string &address);
+
     int get_available_data();
+
 private:
 
     int connect_usb(const string & address);

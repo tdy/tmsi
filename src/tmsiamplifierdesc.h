@@ -1,8 +1,9 @@
-/*
- * TmsiAmplifierDesc.h
- *
- *  Created on: 09-11-2011
- *      Author: Macias
+/**
+ * @brief Tmsi Amplifier Driver
+ * @author Macias@OpenBCI
+ * @date 13 październik 2010, 13:14
+ * Modified on 11 Jan 2013 by Alberto Valero
+ * Distributed under GPL license
  */
 
 #ifndef TmsiAmplifierDesc_H_

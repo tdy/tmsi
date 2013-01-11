@@ -1,8 +1,9 @@
-/*
- * File:   TmsiAmplifier.cpp
- * Author: Macias
- *
- * Created on 13 październik 2010, 13:14
+/**
+ * @brief Tmsi Amplifier Driver
+ * @author Macias@OpenBCI
+ * @date 13 październik 2010, 13:14
+ * Modified on 11 Jan 2013 by Alberto Valero
+ * Distributed under GPL license
  */
 
 #include <stdio.h>

@@ -1,8 +1,9 @@
-/*
- * AmplifierDescription.cpp
- *
- *  Created on: 09-11-2011
- *      Author: Macias
+/**
+ * @brief Tmsi Amplifier Driver
+ * @author Macias@OpenBCI
+ * @date 13 październik 2010, 13:14
+ * Modified on 11 Jan 2013 by Alberto Valero
+ * Distributed under GPL license
  */
 
 #include "amplifierdescription.h"
@@ -10,25 +11,48 @@
 #include "math.h"
 #include <iostream>
 #include <limits>
+
+/**
+ * @brief AmplifierDescription::clear_channels
+ * Removes all channels and frees allocated memory
+ */
 void AmplifierDescription::clear_channels() {
 	while (channels.size()) {
 		delete channels.back();
 		channels.pop_back();
 	}
 }
+
+/**
+ * @brief AmplifierDescription::add_channel
+ * @param channel The channel to add. Can be a physical channel (real) or a virtual generated channel.
+ */
 void AmplifierDescription::add_channel(Channel * channel) {
 	channels.push_back(channel);
-	if (channel->is_generated())
+    if (channel->is_generated()) // if channel is not physical
 		add_generated_channel(channel);
 	else physical_channels++;
 }
+
+/**
+ * @brief AmplifierDescription::get_channels
+ * @return The channels
+ */
 vector<Channel*> AmplifierDescription::get_channels() {
 	return channels;
 }
+
 AmplifierDescription::~AmplifierDescription() {
 	clear_channels();
 }
-AmplifierDescription::AmplifierDescription(string name,Amplifier *driver):name(name),physical_channels(0),driver(driver) {}
+
+
+AmplifierDescription::AmplifierDescription(string name,Amplifier *driver):
+    name(name),
+    physical_channels(0),
+    driver(driver)
+{}
+
 vector<uint> AmplifierDescription::get_sampling_rates() {
 	return sampling_rates;
 }

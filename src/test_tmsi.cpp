@@ -1,11 +1,12 @@
 /**
- * @brief tmsi test program
+ * @brief Tmsi Amplifier Driver
  *
- * TMSi Porti7 amplifier test with fusbi usb
- * Requires Fusbi Kernel Module Installed
+ * Test for TMSi Driver
  *
- * @author Alberto Valero
- * @date 11 Jan 2012
+ * @author Macias@OpenBCI
+ * @date 13 październik 2010, 13:14
+ * Modified on 11 Jan 2013 by Alberto Valero
+ * Distributed under GPL license
  */
 
 
@@ -26,23 +27,36 @@ namespace po=boost::program_options;
 int test_driver(int argc, char ** argv, Amplifier *amp);
 
 int main(int argc,char** argv){
-    TmsiAmplifier amp;
-    try {
-        test_driver(argc,argv,&amp);
-    } catch (exception& e) {
-        cerr << "Exception: "<<e.what();
+
+    TmsiAmplifier amp; //!< Amplifier driver
+
+    try{
+        test_driver(argc,argv, &amp);
+        return 0;
     }
+    catch (char const* msg){
+        cerr<< "Amplifier exception: "<<msg<<"\n";
+    }
+
+    catch (exception * ex){
+        cerr << "Amplifier exception: "<<ex->what()<<"\n";
+    }
+
+    return -1;
+
 }
 
 
 /*
  * Simple C++ Test Suite
  */
-int _test_driver(int argc, char ** argv, Amplifier *amp){
+int test_driver(int argc, char ** argv, Amplifier *amp){
     int length;
     int saw;
     double time_diff;
-    Channel * ampSaw,*driverSaw;
+
+    Channel * ampSaw, *driverSaw;
+
     po::options_description options("Program Options");
 
     options.add_options()
@@ -142,18 +156,4 @@ int _test_driver(int argc, char ** argv, Amplifier *amp){
     amp->stop_sampling();
     return 0;
 
-}
-
-int test_driver(int argc, char ** argv, Amplifier *amp){
-    try{
-        _test_driver(argc,argv,amp);
-        return 0;
-    }
-    catch (char const* msg){
-        cerr<< "Amplifier exception: "<<msg<<"\n";
-    }
-    catch (exception * ex){
-        cerr << "Amplifier exception: "<<ex->what()<<"\n";
-    }
-    return -1;
 }
