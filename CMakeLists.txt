@@ -1,3 +1,8 @@
+# CMakeLists.txt for tmsi linux driver
+# @author Alberto Valero-Gómez
+# @mail alberto.valero.gomez@gmail.com
+# @date 11 Jan 2013
+
 #Minimum version required for CMake
 cmake_minimum_required (VERSION 2.6)
  
@@ -14,9 +19,6 @@ SET(TMSI_TRUNK_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 #Set a variable with the path of the application.
 SET(EXECUTABLE_OUTPUT_PATH ${TMSI_TRUNK_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${TMSI_TRUNK_DIR}/lib)
- 
-#In Linux and Mac OS/X the Path is /usr/include/ooml
-#INCLUDE_DIRECTORIES("/usr/include")
 
 #FIND REQUIRED LIBRARIES
 FIND_PACKAGE(Boost)
