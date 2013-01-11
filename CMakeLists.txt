@@ -18,4 +18,13 @@ SET(LIBRARY_OUTPUT_PATH ${TMSI_TRUNK_DIR}/lib)
 #In Linux and Mac OS/X the Path is /usr/include/ooml
 #INCLUDE_DIRECTORIES("/usr/include")
 
+#FIND REQUIRED LIBRARIES
+FIND_PACKAGE(Boost)
+IF(Boost_FOUND)
+    MESSAGE("Boost Found at ${Boost_INCLUDE_DIR}")
+    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ELSE(Boost_FOUND)
+    MESSAGE(FATAL_ERROR "Boost not founde. BUIT IT IS REQUIRED")
+ENDIF()
+
 ADD_SUBDIRECTORY(src)
