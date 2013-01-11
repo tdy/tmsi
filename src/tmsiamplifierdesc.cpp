@@ -5,8 +5,8 @@
  *      Author: Macias
  */
 #include <iostream>
-#include "TmsiAmplifierDesc.h"
-#include "TmsiAmplifier.h"
+#include "tmsiamplifierdesc.h"
+#include "tmsiamplifier.h"
 
 TmsiAmplifierDesc::TmsiAmplifierDesc(tms_input_device_t &dev,TmsiAmplifier *amp):AmplifierDescription(dev.DeviceDescription,amp){
 	for (int i = 0; i < dev.NrOfChannels; i++) {

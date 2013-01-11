@@ -1,4 +1,4 @@
-#include "Amplifier.h"
+#include "amplifier.h"
 #include <stdio.h>
 using namespace std;
 #include <boost/program_options.hpp>

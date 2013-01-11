@@ -12,7 +12,8 @@ SET(CMAKE_BUILD_TYPE "debugfull" )
 SET(TMSI_TRUNK_DIR ${CMAKE_CURRENT_SOURCE_DIR})
  
 #Set a variable with the path of the application.
-SET(EXECUTABLE_OUTPUT_PATH ${OOM_TRUNK_DIR}/bin)
+SET(EXECUTABLE_OUTPUT_PATH ${TMSI_TRUNK_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${TMSI_TRUNK_DIR}/lib)
  
 #In Linux and Mac OS/X the Path is /usr/include/ooml
 #INCLUDE_DIRECTORIES("/usr/include")

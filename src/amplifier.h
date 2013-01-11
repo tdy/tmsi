@@ -14,8 +14,8 @@
 #include <stdint.h>
 #include <iostream>
 #include <signal.h>
-#include "AmplifierDescription.h"
-#include "Logger.h"
+#include "amplifierdescription.h"
+#include "logger.h"
 using namespace std;
 #include <boost/program_options.hpp>
 #include <sys/timeb.h>

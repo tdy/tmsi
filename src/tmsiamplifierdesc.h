@@ -7,8 +7,8 @@
 
 #ifndef TmsiAmplifierDesc_H_
 #define TmsiAmplifierDesc_H_
-#include "cpp_amplifiers/base/AmplifierDescription.h"
-#include "TmsiChannels.h"
+#include "amplifierdescription.h"
+#include "tmsichannels.h"
 class TmsiAmplifier;
 class TmsiAmplifierDesc:public AmplifierDescription{
 	vector<Channel *> digi_channels;

@@ -5,8 +5,8 @@
  *      Author: Macias
  */
 
-#include "AmplifierDescription.h"
-#include "Amplifier.h"
+#include "amplifierdescription.h"
+#include "amplifier.h"
 #include "math.h"
 #include <iostream>
 #include <limits>

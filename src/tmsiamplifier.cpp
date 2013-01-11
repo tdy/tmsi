@@ -32,7 +32,7 @@
 
 namespace po=boost::program_options;
 
-#include "TmsiAmplifier.h"
+#include "tmsiamplifier.h"
 
 #define IOCTL_TMSI_BUFFERSIZE         0x40044601
 
