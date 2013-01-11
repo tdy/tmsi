@@ -55,8 +55,8 @@ public:
 
 
 private:
-    int fd //!< Devide descriptor
-    int read_fd //!< File Descriptor for reading
+    int fd; //!< Devide descriptor
+    int read_fd; //!< File Descriptor for reading
     int dump_fd; //!< File descriptor for writting (saving data)
 
     tms_frontendinfo_t fei;

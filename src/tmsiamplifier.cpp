@@ -54,18 +54,25 @@ TmsiAmplifier::TmsiAmplifier():Amplifier(){
 
 po::options_description TmsiAmplifier::get_options(){
     po::options_description options=Amplifier::get_options();
+
+    //options for the tmsi amplifier
+
     options.add_options()
             ("device_path,d",po::value<string>()->default_value("/dev/tmsi0"),"Device path for usb connection")
             ("bluetooth_addr,b",po::value<string>()
              ->notifier(boost::bind(&TmsiAmplifier::connect_device,this,BLUETOOTH_AMPLIFIER,_1)),"Bluetooth address of amplifier")
-            ("ip_addr,i",po::value<string>()->implicit_value("10.11.12.13:4242")
+            ("ip_addr,i",po::value<string>()->implicit_value("127.0.0.1:4242")
              ->notifier(boost::bind(&TmsiAmplifier::connect_device,this,IP_AMPLIFIER,_1)),"IP address and port of amplifier")
             ("amplifier_responses,r",po::value<string>()
              ->notifier(boost::bind(&TmsiAmplifier::read_from,this,_1)),"File with saved amplifier responses. Useful for debug")
             ("save_responses",po::value<string>()
              ->notifier(boost::bind(&TmsiAmplifier::dump_to,this,_1)),"File for dumping amplifier responses");
-    po::typed_value<string> * act_channels=(po::typed_value<string> *)options.find("active_channels",true).semantic().get();
+
+    po::typed_value<string> * act_channels
+            = (po::typed_value<string> *)options.find("active_channels",true).semantic().get();
+
     act_channels->default_value("1,2,onoff,Driver_Saw");
+
     return options;
 }
 
