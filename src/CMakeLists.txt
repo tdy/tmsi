@@ -1,7 +1,13 @@
  
 #Set a variable with the name of the cpp source files of your application
-SET(EXE_FILE_LIST main.cpp)
-SET(LIB_FILE_LIST amplifier.cpp)
+SET(EXE_FILE_LIST test_tmsi.cpp)
+
+SET(LIB_FILE_LIST amplifier.cpp
+                amplifierdescription.cpp
+                nexus.cpp
+                tmsiAmplifier.cpp
+                tmsiamplifierdesc.cpp
+    )
  
 #Set a variable with the name of your application
 SET(EXE_NAME tmsi_test)
