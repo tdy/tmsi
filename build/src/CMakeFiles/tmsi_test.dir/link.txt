@@ -1,1 +1,0 @@
-/usr/bin/c++    -g -ggdb    CMakeFiles/tmsi_test.dir/test_tmsi.cpp.o  -o ../../bin/tmsi_test -rdynamic ../../lib/libtmsi.a -lboost_date_time -lboost_program_options -lbluetooth 

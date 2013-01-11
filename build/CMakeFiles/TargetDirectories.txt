@@ -1,2 +1,0 @@
-/home/avalero/workspace/tmsi/build/src/CMakeFiles/tmsi.dir
-/home/avalero/workspace/tmsi/build/src/CMakeFiles/tmsi_test.dir

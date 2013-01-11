@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../lib/libtmsi.a  CMakeFiles/tmsi.dir/amplifier.cpp.o CMakeFiles/tmsi.dir/amplifierdescription.cpp.o CMakeFiles/tmsi.dir/nexus.cpp.o CMakeFiles/tmsi.dir/tmsiamplifier.cpp.o CMakeFiles/tmsi.dir/tmsiamplifierdesc.cpp.o CMakeFiles/tmsi.dir/tmsichannels.cpp.o CMakeFiles/tmsi.dir/logger.cpp.o
-/usr/bin/ranlib ../../lib/libtmsi.a
