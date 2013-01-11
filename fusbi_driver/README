@@ -1,0 +1,12 @@
+Driver for generating and installing fusbi kernel module
+
+Build:
+make
+
+Install:
+sudo make install
+
+Try:
+modprobe tmsi
+
+Works with Kernel veresions <= 3.5.0 (tested in Ubuntu 12.10 and Ubuntu 10.10)
