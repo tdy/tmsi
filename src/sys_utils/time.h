@@ -24,47 +24,17 @@
 
 using namespace std;
 
-namespace mr{
-class MRTime
+class BBTime
 {
-	friend ostream& operator<<(ostream& os, const MRTime& t);
+    friend ostream& operator<<(ostream& os, const BBTime& t);
 
 public:
-	MRTime(void){}
-	~MRTime(void){}
-
-	//update internal value with the current machine time
-	void tic();
-	//returns the number of elapsed milliseconds since last call to now()
-	//if micros=true returns the number of elapsed microseconds
-	long int toc(bool micros=false);
-
-	MRTime operator-(const MRTime& t);
-	inline bool operator>(const MRTime& t)
-	{
-		return ((seconds>t.seconds) || (seconds==t.seconds && microseconds>t.microseconds));
-	}
-	inline bool operator==(const MRTime& t)
-	{
-		return (seconds==t.seconds && microseconds == t.microseconds);
-	}
-	inline bool operator<(const MRTime& t)
-	{
-		return ((seconds<t.seconds) || (seconds==t.seconds && microseconds<t.microseconds));
-	}
-
-//	struct timeb t1,t2;
-	int seconds;
-	int microseconds;
-	//If true, microseconds will be shown, otherwise, only milliseconds
-	static bool microPrecision;
-	
-	void   precistic();   /* start timing. */
-	double precistoc();   /* stop  timing. */
+    BBTime(void){}
+    ~BBTime(void){}	
+    void   tic();   /* start timing. */
+    double toc();   /* stop  timing. */
 
 private:
 	tictoc tv;
 	
 };
-
-}

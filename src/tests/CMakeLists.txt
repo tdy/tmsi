@@ -12,4 +12,4 @@ ADD_EXECUTABLE(tmsi_test_0 ${EXE_FILE_LIST_0})
 TARGET_LINK_LIBRARIES(tmsi_test_0 tmsi)
 
 ADD_EXECUTABLE(tmsi_test_1 ${EXE_FILE_LIST_1})
-TARGET_LINK_LIBRARIES(tmsi_test_1 tmsi)
+TARGET_LINK_LIBRARIES(tmsi_test_1 tmsi sys_utils)

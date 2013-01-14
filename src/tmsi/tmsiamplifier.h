@@ -86,6 +86,7 @@ public:
      * @return sample of index channel
      */
     inline int get_sample_int(uint index){
+        dout << "index: " << index << dendl;
     	return channel_data[index].data[channel_data_index].isample;
     }
 

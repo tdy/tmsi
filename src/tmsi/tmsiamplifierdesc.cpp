@@ -12,14 +12,17 @@
 #include "tmsiamplifier.h"
 
 TmsiAmplifierDesc::TmsiAmplifierDesc(tms_input_device_t &dev,TmsiAmplifier *amp):AmplifierDescription(dev.DeviceDescription,amp){
-	for (int i = 0; i < dev.NrOfChannels; i++) {
+    dout << "I am here" << dendl;
+    for (int i = 0; i < dev.NrOfChannels; i++) {
 		Channel * channel;
 		if (dev.Channel[i].Type.Type==DIGI_CHANNEL){
 			channel=new DigiChannel(dev.Channel[i],amp,i);
 			digi_channels.push_back(channel);
 		}
-		else
+        else{
 			channel=new TmsiChannel(dev.Channel[i],amp,i);
+        }
+
 		add_channel(channel);
 	}
 	physical_channels=dev.NrOfChannels;
