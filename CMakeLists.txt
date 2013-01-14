@@ -15,18 +15,20 @@ SET(CMAKE_BUILD_TYPE "debugfull" )
  
 #Set a variable with the directory path.
 SET(TMSI_TRUNK_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+SET(TMSI_CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_utils")
  
 #Set a variable with the path of the application.
 SET(EXECUTABLE_OUTPUT_PATH ${TMSI_TRUNK_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${TMSI_TRUNK_DIR}/lib)
 
-#FIND REQUIRED LIBRARIES
-FIND_PACKAGE(Boost)
-IF(Boost_FOUND)
-    MESSAGE("Boost Found at ${Boost_INCLUDE_DIR}")
-    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
-ELSE(Boost_FOUND)
-    MESSAGE(FATAL_ERROR "Boost not founde. BUIT IT IS REQUIRED")
-ENDIF()
+# Find and configure switches for external libraries and applications
+INCLUDE(${TMSI_CMAKE_MODULE_PATH}/deps.cmake)
+
+# Creation of config.h
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.cmake" "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h")
+
+
+INCLUDE_DIRECTORIES(src)
 
 ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(src/tests)

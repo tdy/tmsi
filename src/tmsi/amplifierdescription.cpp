@@ -1,10 +1,10 @@
 /**
  * @brief Tmsi Amplifier Driver
  * @date 11 Jan 2013
- * @author Albero Valero (Bit&Brain Techologies S.L.)
+ * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
 #include "amplifierdescription.h"
@@ -77,24 +77,6 @@ string AmplifierDescription::get_json() {
 		out << (i ? ",\n\t\t" : "\t\t") << channels[i]->get_json();
 	out << "]}";
 	return out.str();
-}
-vector<Channel *> AmplifierDescription::find_channels(string st_channels) {
-    dout << st_channels << dendl;
-    vector<Channel *> v_channels;
-    istringstream stream(st_channels);
-
-    int tmp;
-
-    while(!((stream >> tmp).fail())) {
-        char aux; stream>>aux;
-        dout << tmp << dendl;
-        if (tmp < 0)
-            v_channels.push_back(generated_channel(-tmp));
-        else if ((uint) tmp < channels.size())
-            v_channels.push_back(channels[tmp]);
-    }
-
-    return v_channels;
 }
 
 Channel * AmplifierDescription::find_channel(string channel) {
