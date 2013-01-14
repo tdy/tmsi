@@ -1,9 +1,10 @@
 /**
  * @brief Tmsi Amplifier Driver
- * @author Macias@OpenBCI
- * @date 13 październik 2010, 13:14
- * Modified on 11 Jan 2013 by Alberto Valero
- * Distributed under GPL license
+ * @date 11 Jan 2013
+ * @author Albero Valero
+ * Distributed under LGPL license
+ *
+ * Initial version taken from OpenBCI framework
  */
 
 #include <stdio.h>
@@ -85,20 +86,27 @@ void TmsiAmplifier::init(po::variables_map &vm){
 }
 
 void TmsiAmplifier::connect_device(uint type,const string &address){
+    // if already connected disconnect first
     if (fd>=0)
         close(fd);
+
     if (read_fd==fd)
         read_fd=-1;
+
     if (type==BLUETOOTH_AMPLIFIER)
         fd=connect_bluetooth(address);
     else if (type== USB_AMPLIFIER )
         fd=connect_usb(address);
     else
         fd=connect_ip(address);
+
+    //CONNECTION NOT SUCCESSFUL
     if (fd<0)
         cout << "DEVICE OPEN ERROR: "<<address << " errno: "<<fd<<" "<<strerror(errno);
     else
         logger.info()<< (type==IP_AMPLIFIER?"IP ":(type==BLUETOOTH_AMPLIFIER?"Bluetooth ":"Usb ")) << "device connected "<<address<<"\n";
+
+    //File descriptor for reading
     if (read_fd<0)
         read_fd=fd;
 }
@@ -162,6 +170,7 @@ int TmsiAmplifier::connect_ip(const string &address_port){
 int TmsiAmplifier::connect_bluetooth(const string & address) {
     int s, status;
     mode=BLUETOOTH_AMPLIFIER;
+
 #ifdef BLUETOOTH
     struct sockaddr_rc addr = {0};
 
@@ -178,14 +187,19 @@ int TmsiAmplifier::connect_bluetooth(const string & address) {
     /* open connection to TMSi hardware */
     status = connect(s, (struct sockaddr *)&addr, sizeof(addr));
     /* return socket */
+#else
+    cout << "BLUETOOTH LIBRARY NOT INSTALLED ON THIS SYSTEM. Install it first" << endl;
 #endif
+
     return s;
 }
 
 void TmsiAmplifier::read_from(const string &file){
     if (read_fd && read_fd!=fd)
         close(read_fd);
+
     read_fd=open(file.c_str(),O_RDONLY);
+
     if (read_fd<0)
         read_fd=fd;
     else
@@ -195,6 +209,8 @@ void TmsiAmplifier::read_from(const string &file){
 void TmsiAmplifier::dump_to(const string &file){
     if (dump_fd>=0)
         close(dump_fd);
+
+
     dump_fd = open(file.c_str(), O_WRONLY|O_CREAT|O_TRUNC,S_IRWXU);
     if (dump_fd>=0)
         logger.info() << "Dumping Amplifier responses to: "<< file <<"\n";
@@ -214,9 +230,11 @@ int TmsiAmplifier::refreshInfo() {
         free(vli.SampDiv);
         vli.SampDiv = NULL;
     }
+
     refreshFrontEndInfo();
     refreshIDData();
     refreshVLDeltaInfo();
+
     return 0;
 }
 

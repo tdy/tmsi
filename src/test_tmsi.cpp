@@ -1,12 +1,10 @@
 /**
  * @brief Tmsi Amplifier Driver
+ * @date 11 Jan 2013
+ * @author Albero Valero
+ * Distributed under LGPL license
  *
- * Test for TMSi Driver
- *
- * @author Macias@OpenBCI
- * @date 13 październik 2010, 13:14
- * Modified on 11 Jan 2013 by Alberto Valero
- * Distributed under GPL license
+ * Initial version taken from OpenBCI framework
  */
 
 
