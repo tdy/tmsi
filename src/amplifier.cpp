@@ -4,7 +4,7 @@
  * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
 #include "amplifier.h"
@@ -42,8 +42,9 @@ po::options_description Amplifier::get_options() {
 	return options;
 }
 void Amplifier::init(boost::program_options::variables_map &vm) {
-//	set_sampling_rate(vm["sampling_rate"].as<int>());
-//	set_active_channels_string(vm["channels"].as<string>());
+
+    //IMPLEMENTATION ON THE DERIVED CLASSES
+
 }
 Amplifier * Amplifier::signal_handler=NULL;
 void Amplifier::setup_handler(){
@@ -108,15 +109,17 @@ void Amplifier::set_active_channels(std::vector<std::string> &channels) {
 	if (!description)
 		return;
 	for (uint i = 0; i < channels.size(); i++) {
+        dout << "channel "<< i << ": " << channels[i] << dendl;
 		if (channels[i] == "*") {
 			active_channels = description->get_channels();
 			return;
-		}
-		Channel* chan = description->find_channel(channels[i]);
-		if (!chan)
-			throw NoSuchChannel(channels[i]);
-		else
-			active_channels.push_back(chan);
+        }else{
+            Channel* chan = description->find_channel(channels[i]);
+            if (!chan)
+                throw NoSuchChannel(channels[i]);
+            else
+                active_channels.push_back(chan);
+        }
 	}
 }
 void Amplifier::set_active_channels_string(const string &channels) {
@@ -130,16 +133,21 @@ void Amplifier::set_active_channels_string(const string &channels) {
 			return;
 	vector<string> names;
 	uint i = 0;
-	for (;;) {
-		uint64_t j = channels.find(';', i);
+
+    for (;;) {
+        //tokenize string using "," as separator
+        uint64_t j = channels.find(',', i);
 		if (j == string::npos)
 			break;
 		names.push_back(channels.substr(i, j - i));
 		i = j + 1;
 	}
+
 	names.push_back(channels.substr(i));
 	set_active_channels(names);
-	logger.info()<<"Active channels: "<<get_active_channels_string() << "\n";
+
+    logger.info()<<"Active channels: "<<get_active_channels_string() << "\n";
+
 }
 
 double Amplifier::get_sleep_resolution() {

@@ -4,7 +4,7 @@
  * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
 #include <stdint.h>
@@ -32,7 +32,7 @@
 #define TMSCFGSIZE          (1024)
 
 typedef struct TMS_ACKNOWLEDGE_T {
-   uint16_t descriptor;    
+   uint16_t descriptor;
      // received blockdescriptor (type+size) being acknowledged
    uint16_t errorcode;
      //   numbers 0x0000 - 0x0010 are reserved for system errors
@@ -53,7 +53,7 @@ typedef struct TMS_ACKNOWLEDGE_T {
      // 0x19 - sample frequency divider out of range (<0, >max)
      // 0x1A - wrong nr of user channels (<=0, >maxUSRchan)
      // 0x1B - adress flash memory out of range
-     // 0x1C - Erasing not possible because battery low 
+     // 0x1C - Erasing not possible because battery low
 } tms_acknowledge_t, *ptms_acknowledge_t;
 
 
@@ -76,21 +76,21 @@ typedef struct TMS_FRONTENDINFO_T {
     //                     1 = nodata, Channel data send disabled
     // bit 1 = storagemode 0 = storage on  (only if supported by frontend hardware/software)
     //                     1 = storage off
-	  // last 13 uint16_t have valid values only from frontend to PC
+      // last 13 uint16_t have valid values only from frontend to PC
   uint16_t maxRS232;         	// Maximum RS232 send frequentie in Hz
   uint32_t serialnumber;      // System serial number, low uint16_t first
   uint16_t nrEXG;             // nr of EXG (unipolar) channels
   uint16_t nrAUX;             // nr of BIP and AUX channels
   uint16_t hwversion;        	// frontend hardware version number
-                          	  // hundreds is major part, ones is minor
+                              // hundreds is major part, ones is minor
   uint16_t swversion;        	// frontend software version number
-                          	  // hundreds is major part, ones is minor
+                              // hundreds is major part, ones is minor
   uint16_t cmdbufsize;       	// number of uint16_ts in frontend receive buffer
   uint16_t sendbufsize;      	// number of uint16_ts in frontend send buffer
   uint16_t nrofswchannels;   	// total nr of channels in frontend
   uint16_t basesamplerate;    // base sample frequency (in Hz)
   // power and  hardwarecheck not implemented yet, for future use, send 0xFFFF
-  uint16_t power; 
+  uint16_t power;
     //bit 0 - line power detected
     //bit 1 - battery detected
     //bit 2 - RTC battery detected
@@ -113,91 +113,91 @@ typedef struct TMS_FRONTENDINFO_T {
 
 typedef struct TMS_IDREADREQ_T {
   uint16_t startaddress;		// start adress in de buffer with ID data;
-				                    // 4 MSB bits Device number
+                                    // 4 MSB bits Device number
   uint16_t length;		      // amount of words requested;
-				                    // length <= max_length = 0x80 = 128 words
+                                    // length <= max_length = 0x80 = 128 words
 } tms_idreadreq_t, *ptms_idreadreq_t;
 
 
 typedef struct TMS_TYPE_DESC_T {
-  uint16_t Size;	  // Size in words of this structure 
+  uint16_t Size;	  // Size in words of this structure
   uint16_t Type;	  // Channel type id code
-			  //	0 UNKNOWN
-				//	1 EXG
-				//	2 BIP
-				//	3 AUX
-				//	4 DIG
-				//	5 TIME
-				//	6 LEAK
-			  //	7 PRESSURE
-				//	8 ENVELOPE
-				//	9 MARKER
-				//	10 ZAAG
-				//	11 SAO2
-  uint16_t SubType;			// Channel subtype	
+              //	0 UNKNOWN
+                //	1 EXG
+                //	2 BIP
+                //	3 AUX
+                //	4 DIG
+                //	5 TIME
+                //	6 LEAK
+              //	7 PRESSURE
+                //	8 ENVELOPE
+                //	9 MARKER
+                //	10 ZAAG
+                //	11 SAO2
+  uint16_t SubType;			// Channel subtype
         // (+256: unipolar reference, +512: impedance reference)
-				//	.0 Unknown
-				//	.1 EEG
-				//	.2 EMG
-				//	.3 ECG
-				//	.4 EOG
-				//	.5 EAG
-				//	.6 EGG
-				//	.257 EEGREF	(for specific unipolar reference)
-				//	.10 resp
-				//	.11 flow
-				//	.12 snore
-				//	.13 position
-				//	.522 resp/impref (impedance reference)
-				//	.20 SaO2
-				//	.21 plethysmogram
-				//	.22 heartrate
-				//	.23 sensor status
-				//	.30 PVES
-				//	.31 PURA
-				//	.32 PABD
-				//	.33 PDET
+                //	.0 Unknown
+                //	.1 EEG
+                //	.2 EMG
+                //	.3 ECG
+                //	.4 EOG
+                //	.5 EAG
+                //	.6 EGG
+                //	.257 EEGREF	(for specific unipolar reference)
+                //	.10 resp
+                //	.11 flow
+                //	.12 snore
+                //	.13 position
+                //	.522 resp/impref (impedance reference)
+                //	.20 SaO2
+                //	.21 plethysmogram
+                //	.22 heartrate
+                //	.23 sensor status
+                //	.30 PVES
+                //	.31 PURA
+                //	.32 PABD
+                //	.33 PDET
   uint16_t Format;			// Format id
-				//	0x00xx xbit unsigned
-				//	0x01xx xbit signed
-				// examples:
-				//	0x0001 1bit unsigned
-				//	0x0101 1bit signed
-				//	0x0002 2bit unsigned
-				//	0x0102 2bit signed
-				//	0x0008 8bit unsigned
-				//	0x0108 8bit signed
+                //	0x00xx xbit unsigned
+                //	0x01xx xbit signed
+                // examples:
+                //	0x0001 1bit unsigned
+                //	0x0101 1bit signed
+                //	0x0002 2bit unsigned
+                //	0x0102 2bit signed
+                //	0x0008 8bit unsigned
+                //	0x0108 8bit signed
   float a;			 	// Information for converting bits to units:
-  float b;			 	// Unit  = a * Bits  + b ; 
+  float b;			 	// Unit  = a * Bits  + b ;
   uint8_t UnitId;	// Id identifying the units
-			  //	0 bit (no unit) (do not use with front6)
-				//	1 Volt
-				//	2 %
-				//	3 Bpm
-				//	4 Bar
-				//	5 Psi
-				//	6 mH2O
-				//	7 mHg
-				//	8 bit
+              //	0 bit (no unit) (do not use with front6)
+                //	1 Volt
+                //	2 %
+                //	3 Bpm
+                //	4 Bar
+                //	5 Psi
+                //	6 mH2O
+                //	7 mHg
+                //	8 bit
   int8_t Exp;	// Unit exponent, 3 for Kilo, -6 for micro, etc.
 } tms_type_desc_t, *ptms_type_desc_t; 
 
 
 typedef struct TMS_CHANNEL_DESC_T {
-    tms_type_desc_t Type;		   // channel type descriptor 
+    tms_type_desc_t Type;		   // channel type descriptor
     char *ChannelDescription;	 // String pointer identifying the channel
-    float	GainCorrection;		   // Optional gain correction 
-    float	OffsetCorrection;		 // Optional offset correction 
+    float	GainCorrection;		   // Optional gain correction
+    float	OffsetCorrection;		 // Optional offset correction
 } tms_channel_desc_t, *ptms_channel_desc_t;	 // Size = 6 words
 
 
 typedef struct TMS_INPUT_DEVICE_T {
   uint16_t Size;         // Size of this structure in words (device not present: send 2)
   uint16_t Totalsize;    // Total size ID data from this device in words (device not present: send 2)
-  uint32_t SerialNumber; // Serial number of this input device 
-  uint16_t Id;           // Device ID 
-  char    *DeviceDescription;	      // String pointer identifying the device 
-  uint16_t NrOfChannels;		        // Number of channels of this input device 
+  uint32_t SerialNumber; // Serial number of this input device
+  uint16_t Id;           // Device ID
+  char    *DeviceDescription;	      // String pointer identifying the device
+  uint16_t NrOfChannels;		        // Number of channels of this input device
   uint16_t DataPacketSize;	        // Size simple PCM data packet over all channels
   tms_channel_desc_t *Channel;        // Pointer to all channel descriptions
 } tms_input_device_t, *ptms_input_device_t;  
@@ -207,7 +207,7 @@ typedef struct TMS_VLDELTA_INFO_T {
                            // Config&0x0100 -> 0: same 1: different
   uint16_t Length;         // Size [bits] of the length block before a delta sample
   uint16_t TransFreqDiv;   // Transmission frequency divisor Transfreq = MainSampFreq / TransFreqDiv
-  uint16_t NrOfChannels;   
+  uint16_t NrOfChannels;
   uint16_t *SampDiv;       // Real sample frequence divisor per channel
 } tms_vldelta_info_t, *ptms_vldelta_info_t;   
 
@@ -226,13 +226,13 @@ typedef struct TMS_CHANNEL_DATA_T {
 } tms_channel_data_t, *ptms_channel_data_t;   
 
 typedef struct TMS_RTC_T {
-  uint16_t seconds;      
-  uint16_t minutes;    
-  uint16_t hours;    
-  uint16_t day;    
-  uint16_t month;    
-  uint16_t year;    
-  uint16_t century;    
+  uint16_t seconds;
+  uint16_t minutes;
+  uint16_t hours;
+  uint16_t day;
+  uint16_t month;
+  uint16_t year;
+  uint16_t century;
   uint16_t weekday;    // Sunday = 1
 } tms_rtc_t, *ptms_rtc_t;  
 
@@ -265,7 +265,7 @@ typedef struct TMS_CONFIG_T {
   time_t  alarmTime;     /**< alarm time */
   uint8_t info[700];     /**< patient of measurement info */
 } tms_config_t, *ptms_config_t;
- 
+
 /** TMS measurement header struct */
 typedef struct TMS_MEASUREMENT_HDR_T {
   int32_t nsamples;         /**< number of samples in this recording */
@@ -327,7 +327,7 @@ int16_t tms_get_type(uint8_t *msg, int32_t n);
 int32_t tms_rcv_msg(int fd, uint8_t *msg, int32_t n);
 
 /** Convert buffer 'msg' of 'n' bytes into tms_acknowledge_t 'ack'.
- * @return >0 on failure and 0 on success 
+ * @return >0 on failure and 0 on success
 */
 int32_t tms_get_ack(uint8_t *msg, int32_t n, tms_acknowledge_t *ack);
 
@@ -378,7 +378,7 @@ int32_t tms_prt_channel_data(FILE *fp, tms_input_device_t *dev, tms_channel_data
  * @return number of samples.
 */
 int32_t tms_get_data(uint8_t *msg, int32_t n, tms_input_device_t *dev, 
-		     tms_channel_data_t *chd);
+             tms_channel_data_t *chd);
 
 /** Print TMS channel data 'chd' to file 'fp'.
  * @param md: print switch 0: float 1: integer values

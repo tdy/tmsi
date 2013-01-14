@@ -22,6 +22,23 @@ using namespace std;
 #include <boost/program_options.hpp>
 #include <sys/timeb.h>
 #include <time.h>
+
+#define DEBUG
+#define ERROR
+
+#ifdef DEBUG
+#define dout cout<<"\033[7;34m"
+#define dendl "\033[0m"<<endl
+#else
+#define dout 0 && cout
+#endif
+
+#ifdef ERROR
+#define erout cout<<"\033[7;31m"
+#define erendl "\033[0m"<<endl
+#else
+#define erout 0 && cout
+#endif
 vector<string> split_string(string str,char separator);
 inline double get_time_as_double(){
 	struct timeval tv;
@@ -96,9 +113,11 @@ public:
 	inline AmplifierDescription* get_description() {
 		return description;
 	}
+
 	inline const vector<Channel *> &get_active_channels(){
 		return active_channels;
 	}
+
 	inline string get_active_channels_string(){
 		ostringstream out;
 		for (uint i=0;i<active_channels.size();i++)

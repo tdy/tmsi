@@ -4,7 +4,7 @@
  * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
 #ifndef TMSIAMPLIFIER_H

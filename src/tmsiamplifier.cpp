@@ -4,7 +4,7 @@
  * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
 #include <stdio.h>
@@ -59,7 +59,7 @@ po::options_description TmsiAmplifier::get_options(){
     //options for the tmsi amplifier
 
     options.add_options()
-            ("device_path,d",po::value<string>()->default_value("/dev/tmsi0"),"Device path for usb connection")
+            ("device_path,d",po::value<string>()->default_value("/dev/tmsi1"),"Device path for usb connection")
             ("bluetooth_addr,b",po::value<string>()
              ->notifier(boost::bind(&TmsiAmplifier::connect_device,this,BLUETOOTH_AMPLIFIER,_1)),"Bluetooth address of amplifier")
             ("ip_addr,i",po::value<string>()->implicit_value("127.0.0.1:4242")
@@ -79,6 +79,7 @@ po::options_description TmsiAmplifier::get_options(){
 
 void TmsiAmplifier::init(po::variables_map &vm){
     if (fd==-1)
+        //FIXME Made only for USB
         connect_device(USB_AMPLIFIER,vm["device_path"].as<string>());
     if (fd<0)
         exit(-1);
@@ -222,10 +223,12 @@ int TmsiAmplifier::refreshInfo() {
         cout << "Cannot refresh info while sampling!\n";
         return -1;
     }
+
     if (dev.Channel != NULL) {
         free(dev.Channel);
         dev.Channel = NULL;
     }
+
     if (vli.SampDiv != NULL) {
         free(vli.SampDiv);
         vli.SampDiv = NULL;
@@ -510,7 +513,7 @@ int TmsiAmplifier::_print_message(FILE * f,uint8_t *msg, int br) {
     if (valid) {
         switch (type) {
         case TMSACKNOWLEDGE:
-            tms_acknowledge_t ack;
+            TMS_ACKNOWLEDGE_T ack;
             tms_get_ack(msg, br, &ack);
             tms_prt_ack(f, &ack);
             break;

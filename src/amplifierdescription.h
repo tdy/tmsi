@@ -1,7 +1,7 @@
 /**
  * @brief Tmsi Amplifier Driver
  * @date 11 Jan 2013
- * @author Albero Valero
+ * @author Albero Valero (Bit&Brain Techologies S.L.)
  * Distributed under LGPL license
  *
  * Initial version taken from OpenBCI framework
@@ -62,6 +62,13 @@ public:
     }
 
     virtual Channel *find_channel(string channel);
+
+    /**
+     * @brief find_channels with given number
+     * @param channels string comma or space separated with the channel numbers
+     * @return vector containing pointers to the given channels
+     */
+    virtual vector<Channel*> find_channels(string channels);
 
     /**
      * @brief get_physical_channels

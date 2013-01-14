@@ -4,9 +4,10 @@
  * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
+#include <string>
 #include <stdio.h>
 #include <stdint.h>
 #include <sys/types.h>
@@ -967,7 +968,7 @@ int16_t tms_put_chksum(uint8_t *msg, int32_t n) {
 /** Convert buffer 'msg' of 'n' bytes into tms_acknowledge_t 'ack'.
  * @return >0 on failure and 0 on success 
  */
-int32_t tms_get_ack(uint8_t *msg, int32_t n, tms_acknowledge_t *ack) {
+int32_t tms_get_ack(uint8_t *msg, int32_t n, TMS_ACKNOWLEDGE_T *ack) {
 
 	int32_t i; /**< general index */
 	int32_t type; /**< message type */
@@ -991,7 +992,7 @@ int32_t tms_get_ack(uint8_t *msg, int32_t n, tms_acknowledge_t *ack) {
 /** Print tms_acknowledge_t 'ack' to file 'fp'.
  *  @return number of printed characters.
  */
-int32_t tms_prt_ack(FILE *fp, tms_acknowledge_t *ack) {
+int32_t tms_prt_ack(FILE *fp, TMS_ACKNOWLEDGE_T *ack) {
 
 	int32_t nc = 0;
 
@@ -1341,7 +1342,7 @@ int32_t tms_get_input_device(uint8_t *msg, int32_t n, int32_t start,
 		char * desc = tms_get_string(msg, n, idx);
 		if (desc == NULL) {
 			error = 1;
-			desc = "ERROR";
+            desc = "ERROR";
 		}
 		inpdev->Channel[j].ChannelDescription = desc;
 
@@ -2232,7 +2233,7 @@ int32_t tms_init(char *fname, int32_t sample_rate_div) {
 	uint8_t resp[0x10000]; /**< TMS response to challenge */
 	int32_t type; /**< TMS message type */
 
-	tms_acknowledge_t ack; /**< TMS acknowlegde */
+    TMS_ACKNOWLEDGE_T ack; /**< TMS acknowlegde */
 
 	fei = (tms_frontendinfo_t *) malloc(sizeof(tms_frontendinfo_t));
 	vld = (tms_vldelta_info_t *) malloc(sizeof(tms_vldelta_info_t));
@@ -2364,7 +2365,7 @@ int32_t tms_get_samples(tms_channel_data_t *channel) {
 	static int32_t tzerr = 0; /**< total zaag error counter */
 	int32_t zerr = 0; /**< zaag error value */
 	int32_t cnt = 0; /**< sample counter */
-	tms_acknowledge_t ack; /**< TMS acknowlegde */
+    TMS_ACKNOWLEDGE_T ack; /**< TMS acknowlegde */
 
 	if (state < 4 || state > 5) {
 		return -1;

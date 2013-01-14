@@ -4,7 +4,7 @@
  * @author Albero Valero
  * Distributed under LGPL license
  *
- * Initial version taken from OpenBCI framework
+ * Initial version taken from OpenBCI framework (http://git.braintech.pl/openbci.git)
  */
 
 
@@ -71,13 +71,17 @@ int test_driver(int argc, char ** argv, Amplifier *amp){
     po::notify(vm);
     amp->init(vm);
 
-    cout << amp->get_description()->get_json()<<"\n";
+    //cout << amp->get_description()->get_json()<<"\n";
+
     int sample_rate = amp->get_sampling_rate();
     ampSaw=amp->get_description()->find_channel("Saw");
     driverSaw=amp->get_description()->find_channel("Driver_Saw");
+
+
     vector<Channel *> channels = amp->get_active_channels();
     int last_saw=-1;
 
+    dout << "Found " << channels.size() << " active channels" << dendl;
     if (!vm.count("start"))
         return 0;
     if (saw){
