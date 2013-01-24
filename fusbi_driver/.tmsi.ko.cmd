@@ -1,1 +1,0 @@
-cmd_/home/avalero/workspace/tmsi/fusbi_driver/tmsi.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.5.0-21-generic/scripts/module-common.lds --build-id  -o /home/avalero/workspace/tmsi/fusbi_driver/tmsi.ko /home/avalero/workspace/tmsi/fusbi_driver/tmsi.o /home/avalero/workspace/tmsi/fusbi_driver/tmsi.mod.o
